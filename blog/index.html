@@ -5,6 +5,225 @@ description: Learn about photo organization, file management, and digital privac
 keywords: photo organization, file management, digital privacy, offline utilities, EXIF data, duplicate files
 ---
 
+<!-- EmailJS Modal -->
+<div
+  id="notifyModal"
+  class="fixed inset-0 bg-black bg-opacity-50 hidden items-center justify-center z-50"
+>
+  <div class="bg-white rounded-lg p-8 max-w-md w-full mx-4">
+    <div class="flex justify-between items-center mb-6">
+      <h2 class="text-2xl font-bold text-gray-900">Stay Updated</h2>
+      <button
+        onclick="hideNotifyModal()"
+        class="text-gray-400 hover:text-gray-600"
+      >
+        <svg
+          class="w-6 h-6"
+          fill="none"
+          stroke="currentColor"
+          viewBox="0 0 24 24"
+        >
+          <path
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            stroke-width="2"
+            d="M6 18L18 6M6 6l12 12"
+          ></path>
+        </svg>
+      </button>
+    </div>
+
+    <p class="text-gray-600 mb-6">
+      Get notified when we publish new articles about privacy-first file
+      management, photo organization tips, and digital privacy insights.
+    </p>
+
+    <form id="notifyForm" class="space-y-4">
+      <div>
+        <label for="email" class="block text-sm font-medium text-gray-700 mb-2">
+          Email Address
+        </label>
+        <input
+          type="email"
+          id="email"
+          name="email"
+          required
+          class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-flipfocus-500 focus:border-transparent"
+          placeholder="your@email.com"
+        />
+      </div>
+
+      <div class="flex items-center">
+        <input
+          type="checkbox"
+          id="privacy"
+          name="privacy"
+          required
+          class="h-4 w-4 text-flipfocus-600 focus:ring-flipfocus-500 border-gray-300 rounded"
+        />
+        <label for="privacy" class="ml-2 block text-sm text-gray-700">
+          I agree to receive blog updates and understand my data stays private
+        </label>
+      </div>
+
+      <button
+        type="submit"
+        class="w-full bg-flipfocus-600 text-white py-2 px-4 rounded-md hover:bg-flipfocus-700 transition-colors disabled:opacity-50"
+        id="submitBtn"
+      >
+        <span id="submitText">Notify Me</span>
+        <div id="submitLoader" class="hidden">
+          <svg
+            class="animate-spin -ml-1 mr-3 h-5 w-5 text-white inline"
+            xmlns="http://www.w3.org/2000/svg"
+            fill="none"
+            viewBox="0 0 24 24"
+          >
+            <circle
+              class="opacity-25"
+              cx="12"
+              cy="12"
+              r="10"
+              stroke="currentColor"
+              stroke-width="4"
+            ></circle>
+            <path
+              class="opacity-75"
+              fill="currentColor"
+              d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"
+            ></path>
+          </svg>
+          Sending...
+        </div>
+      </button>
+    </form>
+
+    <div id="successMessage" class="hidden text-green-600 text-center mt-4">
+      <svg
+        class="w-8 h-8 mx-auto mb-2"
+        fill="none"
+        stroke="currentColor"
+        viewBox="0 0 24 24"
+      >
+        <path
+          stroke-linecap="round"
+          stroke-linejoin="round"
+          stroke-width="2"
+          d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"
+        ></path>
+      </svg>
+      <p>Thank you! We'll notify you when new blog posts are published.</p>
+    </div>
+
+    <div id="errorMessage" class="hidden text-red-600 text-center mt-4">
+      <svg
+        class="w-8 h-8 mx-auto mb-2"
+        fill="none"
+        stroke="currentColor"
+        viewBox="0 0 24 24"
+      >
+        <path
+          stroke-linecap="round"
+          stroke-linejoin="round"
+          stroke-width="2"
+          d="M12 8v4m0 4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"
+        ></path>
+      </svg>
+      <p>Something went wrong. Please try again later.</p>
+    </div>
+  </div>
+</div>
+
+<script>
+  function showNotifyModal() {
+    document.getElementById("notifyModal").classList.remove("hidden");
+    document.getElementById("notifyModal").classList.add("flex");
+    document.body.style.overflow = "hidden";
+  }
+
+  function hideNotifyModal() {
+    document.getElementById("notifyModal").classList.add("hidden");
+    document.getElementById("notifyModal").classList.remove("flex");
+    document.body.style.overflow = "auto";
+
+    // Reset form
+    document.getElementById("notifyForm").reset();
+    document.getElementById("successMessage").classList.add("hidden");
+    document.getElementById("errorMessage").classList.add("hidden");
+    document.getElementById("submitBtn").disabled = false;
+    document.getElementById("submitText").classList.remove("hidden");
+    document.getElementById("submitLoader").classList.add("hidden");
+  }
+
+  // Close modal when clicking outside
+  document
+    .getElementById("notifyModal")
+    .addEventListener("click", function (e) {
+      if (e.target === this) {
+        hideNotifyModal();
+      }
+    });
+
+  // Handle form submission
+  document
+    .getElementById("notifyForm")
+    .addEventListener("submit", async function (e) {
+      e.preventDefault();
+
+      const email = document.getElementById("email").value;
+      const submitBtn = document.getElementById("submitBtn");
+      const submitText = document.getElementById("submitText");
+      const submitLoader = document.getElementById("submitLoader");
+
+      // Show loading state
+      submitBtn.disabled = true;
+      submitText.classList.add("hidden");
+      submitLoader.classList.remove("hidden");
+
+      try {
+        // Send email via EmailJS
+        await emailjs.send(
+          EMAILJS_CONFIG.serviceId,
+          EMAILJS_CONFIG.templateId,
+          {
+            user_email: email,
+            message: "New blog notification signup",
+            subject: "FlipFocus Blog - New Subscriber",
+            to_email: EMAILJS_CONFIG.recipientEmail,
+          },
+          EMAILJS_CONFIG.publicKey
+        );
+
+        // Show success message
+        document.getElementById("successMessage").classList.remove("hidden");
+        document.getElementById("notifyForm").classList.add("hidden");
+
+        // Store email locally (optional, for UX)
+        localStorage.setItem("flipfocus_blog_email", email);
+      } catch (error) {
+        console.error("Error sending email:", error);
+
+        // Show error message
+        document.getElementById("errorMessage").classList.remove("hidden");
+
+        // Reset button state
+        submitBtn.disabled = false;
+        submitText.classList.remove("hidden");
+        submitLoader.classList.add("hidden");
+      }
+    });
+
+  // Handle escape key
+  document.addEventListener("keydown", function (e) {
+    if (
+      e.key === "Escape" &&
+      !document.getElementById("notifyModal").classList.contains("hidden")
+    ) {
+      hideNotifyModal();
+    }
+  });
+</script>
+
 <section class="section-padding bg-white">
   <div class="max-w-4xl mx-auto container-padding">
     <div class="text-center mb-16">
@@ -12,29 +231,314 @@ keywords: photo organization, file management, digital privacy, offline utilitie
         FlipFocus Blog
       </h1>
       <p class="text-xl text-gray-600 max-w-3xl mx-auto">
-        Tips, guides, and insights about photo organization, file management, and maintaining your digital privacy.
+        Tips, guides, and insights about photo organization, file management,
+        and maintaining your digital privacy.
       </p>
     </div>
-    
+
+    {% if site.posts.size > 0 %}
+    <!-- Blog Posts -->
+    <div class="space-y-16">
+      {% for post in site.posts %}
+      <article class="card hover:shadow-lg transition-shadow p-8 mb-8">
+        <div class="flex flex-col md:flex-row gap-8">
+          <div class="flex-1">
+            <div class="flex items-center space-x-4 text-sm text-gray-500 mb-4">
+              <time datetime="{{ post.date | date: '%Y-%m-%d' }}">
+                {{ post.date | date: '%B %d, %Y' }}
+              </time>
+              <span>•</span>
+              <span
+                >{{ post.content | number_of_words | divided_by: 200 | plus: 1
+                }} min read</span
+              >
+            </div>
+
+            <h2 class="text-2xl md:text-3xl font-bold text-gray-900 mb-6">
+              <a
+                href="{{ post.url }}"
+                class="hover:text-flipfocus-600 transition-colors"
+              >
+                {{ post.title }}
+              </a>
+            </h2>
+
+            <p class="text-gray-600 mb-6 leading-relaxed text-lg">
+              {{ post.description }}
+            </p>
+
+            <div class="flex items-center justify-between flex-wrap gap-4">
+              <a
+                href="{{ post.url }}"
+                class="text-flipfocus-600 hover:text-flipfocus-700 font-medium text-sm inline-flex items-center"
+              >
+                Read more
+                <svg
+                  class="w-4 h-4 ml-1"
+                  fill="none"
+                  stroke="currentColor"
+                  viewBox="0 0 24 24"
+                >
+                  <path
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    stroke-width="2"
+                    d="M9 5l7 7-7 7"
+                  ></path>
+                </svg>
+              </a>
+
+              {% if post.keywords %}
+              <div class="flex flex-wrap gap-4">
+                {% assign keywords = post.keywords | split: ', ' %} {% for
+                keyword in keywords limit: 3 %}
+                <span
+                  class="text-xs bg-gray-100 text-gray-600 px-3 py-1 rounded-full hover:bg-gray-200 transition-colors"
+                >
+                  {{ keyword }}
+                </span>
+                {% endfor %}
+              </div>
+              {% endif %}
+            </div>
+          </div>
+        </div>
+      </article>
+      {% endfor %}
+    </div>
+    {% else %}
+    <!-- No Posts Yet -->
     <div class="text-center">
-      <p class="text-gray-600 mb-8">Blog posts coming soon! We'll be sharing:</p>
+      <p class="text-gray-600 mb-8">
+        Blog posts coming soon! We'll be sharing:
+      </p>
       <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
         <div class="card">
-          <h3 class="text-lg font-semibold text-gray-900 mb-2">Photo Organization Guides</h3>
-          <p class="text-gray-600 text-sm">Best practices for organizing thousands of photos and videos</p>
+          <h3 class="text-lg font-semibold text-gray-900 mb-2">
+            Photo Organization Guides
+          </h3>
+          <p class="text-gray-600 text-sm">
+            Best practices for organizing thousands of photos and videos
+          </p>
         </div>
         <div class="card">
-          <h3 class="text-lg font-semibold text-gray-900 mb-2">Digital Privacy Tips</h3>
-          <p class="text-gray-600 text-sm">How to keep your files private in the digital age</p>
+          <h3 class="text-lg font-semibold text-gray-900 mb-2">
+            Digital Privacy Tips
+          </h3>
+          <p class="text-gray-600 text-sm">
+            How to keep your files private in the digital age
+          </p>
         </div>
         <div class="card">
-          <h3 class="text-lg font-semibold text-gray-900 mb-2">File Management Strategies</h3>
-          <p class="text-gray-600 text-sm">Efficient workflows for managing your digital assets</p>
+          <h3 class="text-lg font-semibold text-gray-900 mb-2">
+            File Management Strategies
+          </h3>
+          <p class="text-gray-600 text-sm">
+            Efficient workflows for managing your digital assets
+          </p>
         </div>
         <div class="card">
-          <h3 class="text-lg font-semibold text-gray-900 mb-2">Technical Deep Dives</h3>
-          <p class="text-gray-600 text-sm">Understanding EXIF data, file formats, and metadata</p>
+          <h3 class="text-lg font-semibold text-gray-900 mb-2">
+            Technical Deep Dives
+          </h3>
+          <p class="text-gray-600 text-sm">
+            Understanding EXIF data, file formats, and metadata
+          </p>
         </div>
+      </div>
+    </div>
+    {% endif %}
+  </div>
+</section>
+
+<!-- Newsletter Signup -->
+<section class="section-padding bg-gray-50">
+  <div class="max-w-4xl mx-auto container-padding">
+    <div class="text-center">
+      <h2 class="text-2xl md:text-3xl font-bold text-gray-900 mb-4">
+        Stay Updated
+      </h2>
+      <p class="text-gray-600 mb-8">
+        Get notified when we publish new articles about privacy-first file
+        management.
+      </p>
+
+      <div class="max-w-md mx-auto">
+        <button onclick="showNotifyModal()" class="btn-primary w-full">
+          Notify Me of New Posts
+        </button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Topics Section -->
+<section class="section-padding bg-white">
+  <div class="max-w-4xl mx-auto container-padding">
+    <div class="text-center mb-12">
+      <h2 class="text-2xl md:text-3xl font-bold text-gray-900 mb-4">
+        What We Write About
+      </h2>
+      <p class="text-gray-600">
+        Discover the topics we cover to help you manage your digital life
+        privately and efficiently.
+      </p>
+    </div>
+
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+      <div class="card text-center">
+        <div
+          class="w-12 h-12 bg-flipfocus-100 rounded-lg flex items-center justify-center mx-auto mb-4"
+        >
+          <svg
+            class="w-6 h-6 text-flipfocus-600"
+            fill="none"
+            stroke="currentColor"
+            viewBox="0 0 24 24"
+          >
+            <path
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              stroke-width="2"
+              d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z"
+            />
+          </svg>
+        </div>
+        <h3 class="text-lg font-semibold text-gray-900 mb-2">
+          Photo Organization
+        </h3>
+        <p class="text-gray-600 text-sm">
+          Best practices for organizing thousands of photos and videos
+          efficiently
+        </p>
+      </div>
+
+      <div class="card text-center">
+        <div
+          class="w-12 h-12 bg-flipfocus-100 rounded-lg flex items-center justify-center mx-auto mb-4"
+        >
+          <svg
+            class="w-6 h-6 text-flipfocus-600"
+            fill="none"
+            stroke="currentColor"
+            viewBox="0 0 24 24"
+          >
+            <path
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              stroke-width="2"
+              d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"
+            />
+          </svg>
+        </div>
+        <h3 class="text-lg font-semibold text-gray-900 mb-2">
+          Digital Privacy
+        </h3>
+        <p class="text-gray-600 text-sm">
+          How to keep your files private and secure in the digital age
+        </p>
+      </div>
+
+      <div class="card text-center">
+        <div
+          class="w-12 h-12 bg-flipfocus-100 rounded-lg flex items-center justify-center mx-auto mb-4"
+        >
+          <svg
+            class="w-6 h-6 text-flipfocus-600"
+            fill="none"
+            stroke="currentColor"
+            viewBox="0 0 24 24"
+          >
+            <path
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              stroke-width="2"
+              d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 012-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10"
+            />
+          </svg>
+        </div>
+        <h3 class="text-lg font-semibold text-gray-900 mb-2">
+          File Management
+        </h3>
+        <p class="text-gray-600 text-sm">
+          Efficient workflows for managing your digital assets and files
+        </p>
+      </div>
+
+      <div class="card text-center">
+        <div
+          class="w-12 h-12 bg-flipfocus-100 rounded-lg flex items-center justify-center mx-auto mb-4"
+        >
+          <svg
+            class="w-6 h-6 text-flipfocus-600"
+            fill="none"
+            stroke="currentColor"
+            viewBox="0 0 24 24"
+          >
+            <path
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              stroke-width="2"
+              d="M10 20l4-16m4 4l4 4-4 4M6 16l-4-4 4-4"
+            />
+          </svg>
+        </div>
+        <h3 class="text-lg font-semibold text-gray-900 mb-2">
+          Technical Deep Dives
+        </h3>
+        <p class="text-gray-600 text-sm">
+          Understanding EXIF data, file formats, and metadata
+        </p>
+      </div>
+
+      <div class="card text-center">
+        <div
+          class="w-12 h-12 bg-flipfocus-100 rounded-lg flex items-center justify-center mx-auto mb-4"
+        >
+          <svg
+            class="w-6 h-6 text-flipfocus-600"
+            fill="none"
+            stroke="currentColor"
+            viewBox="0 0 24 24"
+          >
+            <path
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              stroke-width="2"
+              d="M13 10V3L4 14h7v7l9-11h-7z"
+            />
+          </svg>
+        </div>
+        <h3 class="text-lg font-semibold text-gray-900 mb-2">
+          Productivity Tips
+        </h3>
+        <p class="text-gray-600 text-sm">
+          Save hours with automated file organization and duplicate detection
+        </p>
+      </div>
+
+      <div class="card text-center">
+        <div
+          class="w-12 h-12 bg-flipfocus-100 rounded-lg flex items-center justify-center mx-auto mb-4"
+        >
+          <svg
+            class="w-6 h-6 text-flipfocus-600"
+            fill="none"
+            stroke="currentColor"
+            viewBox="0 0 24 24"
+          >
+            <path
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              stroke-width="2"
+              d="M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343-5.657l-.707-.707m2.828 9.9a5 5 0 117.072 0l-.548.547A3.374 3.374 0 0014 18.469V19a2 2 0 11-4 0v-.531c0-.895-.356-1.754-.988-2.386l-.548-.547z"
+            />
+          </svg>
+        </div>
+        <h3 class="text-lg font-semibold text-gray-900 mb-2">App Tutorials</h3>
+        <p class="text-gray-600 text-sm">
+          Step-by-step guides for using our privacy-first file management tools
+        </p>
       </div>
     </div>
   </div>
