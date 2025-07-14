@@ -1,0 +1,87 @@
+# Site Settings
+title: FlipFocus
+description: Privacy-first utility apps for Mac and Windows. Offline photo organization, duplicate detection, and file management tools. One-time purchase, lifetime updates.
+author: Maurits van Hassel
+
+# URL Settings
+url: "https://www.flipfocus.nl"
+baseurl: ""
+
+# Build Settings
+markdown: kramdown
+highlighter: rouge
+permalink: /blog/:year/:month/:day/:title/
+
+# Collections
+collections:
+  products:
+    output: true
+    permalink: /:name/
+
+# SEO Plugins
+plugins:
+  - jekyll-sitemap
+  - jekyll-feed
+  - jekyll-seo-tag
+
+# Products Information
+apps:
+  photo_organizer:
+    name: "Photo Organizer"
+    price: "19.99"
+    currency: "EUR"
+    url: "https://organizer.flipfocus.nl"
+    description: "Intelligent photo and video organization with automatic sorting"
+  duplicates_scanner:
+    name: "Duplicates Scanner"
+    price: "9.99"
+    currency: "EUR"
+    url: "https://duplicates.flipfocus.nl"
+    description: "Find and remove duplicate files across your entire system"
+
+# Bundle Pricing
+bundle:
+  price: "25.00"
+  savings: "4.98"
+  currency: "EUR"
+  mac_url: "https://itunes.apple.com/us/app-bundle/id1826383652?mt=12"
+
+# Future Products (for SEO and roadmap)
+coming_soon:
+  - name: "Video Compressor"
+    description: "Batch compress videos while maintaining quality"
+    eta: "Q3 2025"
+  - name: "Image Resizer"
+    description: "Batch resize and convert images to different formats"
+    eta: "Q4 2025"
+  - name: "Metadata Scrubber"
+    description: "Remove EXIF and metadata from files before sharing"
+    eta: "Q4 2025"
+
+# Business Information
+company:
+  name: "FlipFocus"
+  founder: "Maurits van Hassel"
+  description: "Privacy-first utility apps for digital file management"
+  founded: "2024"
+  location: "Netherlands"
+
+# Social Media
+social:
+  github: "mcvanhassel"
+  twitter: "mcvanhassel"
+
+# SEO Settings
+lang: en
+keywords: privacy-first apps, offline utilities, photo organizer, duplicate scanner, file management, desktop apps, Mac Windows, one-time purchase, EXIF metadata, batch processing
+
+# Exclude files from processing
+exclude:
+  - node_modules
+  - package.json
+  - package-lock.json
+  - tailwind.config.js
+  - README.md
+  - Gemfile
+  - Gemfile.lock
+  - vendor

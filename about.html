@@ -1,0 +1,68 @@
+---
+layout: default
+title: About FlipFocus
+description: Learn about FlipFocus - privacy-first utility apps for Mac and Windows. Our story, mission, and commitment to offline file management tools.
+keywords: about FlipFocus, privacy-first apps, indie developer, offline utilities, digital privacy
+---
+
+<section class="section-padding bg-white">
+  <div class="max-w-4xl mx-auto container-padding">
+    <div class="text-center mb-16">
+      <h1 class="text-4xl md:text-5xl font-bold text-gray-900 mb-6">
+        About FlipFocus
+      </h1>
+      <p class="text-xl text-gray-600 max-w-3xl mx-auto">
+        Privacy-first utility apps built with the belief that your data should
+        stay yours.
+      </p>
+    </div>
+
+    <div class="prose prose-lg max-w-none">
+      <h2>Our Story</h2>
+      <p>
+        FlipFocus was born from a simple frustration: why should organizing your
+        photos require uploading them to someone else's servers? As a solo
+        developer, I believe in creating tools that respect your privacy and
+        work entirely offline.
+      </p>
+
+      <h2>Our Mission</h2>
+      <p>
+        We're committed to building privacy-first utility apps that solve real
+        problems without compromising your data. Every FlipFocus app operates
+        100% offline, ensuring your files never leave your device.
+      </p>
+
+      <h2>Privacy Commitment</h2>
+      <ul>
+        <li>
+          <strong>100% Offline:</strong> All processing happens locally on your
+          device
+        </li>
+        <li>
+          <strong>No Data Collection:</strong> We don't track, store, or analyze
+          your usage
+        </li>
+        <li>
+          <strong>No Subscriptions:</strong> Buy once, own forever with lifetime
+          updates
+        </li>
+        <li>
+          <strong>Open Development:</strong> Transparent about our practices and
+          roadmap
+        </li>
+      </ul>
+
+      <h2>Roadmap</h2>
+      <p>We're constantly working on new privacy-first utilities:</p>
+      <ul>
+        {% for product in site.coming_soon %}
+        <li>
+          <strong>{{ product.name }}</strong> ({{ product.eta }}): {{
+          product.description }}
+        </li>
+        {% endfor %}
+      </ul>
+    </div>
+  </div>
+</section>

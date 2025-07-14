@@ -1,0 +1,14 @@
+{
+  "name": "FlipFocus - Privacy-First Utility Apps",
+  "short_name": "FlipFocus",
+  "description": "Privacy-first utility apps for Mac and Windows. Offline photo organization, duplicate detection, and file management tools. One-time purchase, lifetime updates.",
+  "start_url": "/",
+  "display": "browser",
+  "background_color": "#ffffff",
+  "theme_color": "#2563eb",
+  "categories": ["productivity", "utilities", "business"],
+  "lang": "en",
+  "orientation": "any",
+  "scope": "/",
+  "icons": []
+}

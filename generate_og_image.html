@@ -1,0 +1,246 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>FlipFocus OG Image Generator</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap"
+      rel="stylesheet"
+    />
+    <style>
+      body {
+        margin: 0;
+        padding: 20px;
+        font-family: "Inter", sans-serif;
+        background: #f3f4f6;
+      }
+
+      .og-image {
+        width: 1200px;
+        height: 630px;
+        background: linear-gradient(135deg, #2563eb 0%, #7c3aed 100%);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        position: relative;
+        overflow: hidden;
+        border-radius: 16px;
+        box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
+      }
+
+      .pattern-overlay {
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        opacity: 0.1;
+        background-image: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23ffffff' fill-opacity='0.4'%3E%3Ccircle cx='30' cy='30' r='4'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
+      }
+
+      .content {
+        text-align: center;
+        z-index: 2;
+        color: white;
+        max-width: 900px;
+        padding: 0 60px;
+      }
+
+      .logo-area {
+        margin-bottom: 40px;
+      }
+
+      .logo {
+        width: 120px;
+        height: 120px;
+        background: rgba(255, 255, 255, 0.2);
+        border-radius: 24px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        margin: 0 auto 20px;
+        backdrop-filter: blur(10px);
+        border: 2px solid rgba(255, 255, 255, 0.3);
+      }
+
+      .logo-text {
+        font-size: 48px;
+        font-weight: 700;
+        color: white;
+        /* text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3); */
+      }
+
+      .title {
+        font-size: 84px;
+        font-weight: 700;
+        margin-bottom: 20px;
+        line-height: 1.1;
+        text-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+      }
+
+      .subtitle {
+        font-size: 36px;
+        font-weight: 500;
+        margin-bottom: 30px;
+        opacity: 0.95;
+        text-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+      }
+
+      .description {
+        font-size: 24px;
+        font-weight: 400;
+        opacity: 0.9;
+        line-height: 1.4;
+        text-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+      }
+
+      .features {
+        display: flex;
+        justify-content: center;
+        gap: 40px;
+        margin-top: 40px;
+      }
+
+      .feature {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        font-size: 18px;
+        font-weight: 500;
+        opacity: 0.9;
+      }
+
+      .feature-icon {
+        width: 24px;
+        height: 24px;
+        border-radius: 50%;
+        background: rgba(255, 255, 255, 0.3);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+      }
+
+      .instructions {
+        margin-top: 40px;
+        background: white;
+        padding: 30px;
+        border-radius: 12px;
+        box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+      }
+
+      .instructions h2 {
+        color: #1f2937;
+        margin-bottom: 20px;
+      }
+
+      .instructions p {
+        color: #6b7280;
+        margin-bottom: 15px;
+      }
+
+      .instructions ol {
+        color: #374151;
+        padding-left: 20px;
+      }
+
+      .instructions li {
+        margin-bottom: 8px;
+      }
+
+      .instructions code {
+        background: #f3f4f6;
+        padding: 2px 6px;
+        border-radius: 4px;
+        font-family: "SF Mono", Monaco, monospace;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="og-image">
+      <div class="pattern-overlay"></div>
+      <div class="content">
+        <div class="logo-area">
+          <div class="logo">
+            <div
+              class="logo-text"
+              style="transform: scaleX(-1); margin-right: -3px"
+            >
+              F
+            </div>
+            <div class="logo-text">F</div>
+          </div>
+        </div>
+        <h1 class="title">FlipFocus</h1>
+        <p class="subtitle">Privacy-First Utility Apps</p>
+        <p class="description">
+          Offline photo organization & duplicate detection for Mac & Windows
+        </p>
+        <div class="features">
+          <div class="feature">
+            <div class="feature-icon">🔒</div>
+            <span>100% Offline</span>
+          </div>
+          <div class="feature">
+            <div class="feature-icon">⚡</div>
+            <span>Lightning Fast</span>
+          </div>
+          <div class="feature">
+            <div class="feature-icon">💰</div>
+            <span>One-Time Purchase</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="instructions">
+      <h2>How to Generate Your OG Image</h2>
+      <p>
+        This template creates a 1200x630 pixel OG image perfect for social media
+        sharing.
+      </p>
+
+      <h3>Method 1: Browser Screenshot (Easiest)</h3>
+      <ol>
+        <li>Open this HTML file in Chrome or Firefox</li>
+        <li>Press <code>F12</code> to open Developer Tools</li>
+        <li>Click the device toolbar icon (mobile/tablet view)</li>
+        <li>Set dimensions to <code>1200x630</code></li>
+        <li>
+          Right-click on the blue gradient area and select "Capture screenshot"
+        </li>
+        <li>Save as <code>flipfocus-og-image.png</code></li>
+        <li>Move the file to <code>assets/images/</code> directory</li>
+      </ol>
+
+      <h3>Method 2: Online Screenshot Tools</h3>
+      <ol>
+        <li>Upload this HTML file to services like:</li>
+        <ul>
+          <li><a href="https://htmlcsstoimage.com/">htmlcsstoimage.com</a></li>
+          <li><a href="https://websitetoimage.com/">websitetoimage.com</a></li>
+          <li><a href="https://www.web-capture.net/">web-capture.net</a></li>
+        </ul>
+        <li>Set dimensions to 1200x630</li>
+        <li>Generate and download the image</li>
+      </ol>
+
+      <h3>Method 3: Puppeteer/Playwright (Advanced)</h3>
+      <p>
+        If you're comfortable with Node.js, you can use automated screenshot
+        tools.
+      </p>
+
+      <h3>Customization</h3>
+      <p>Edit the HTML content above to:</p>
+      <ul>
+        <li>Change the logo (replace "FF" with your actual logo)</li>
+        <li>Update colors in the CSS</li>
+        <li>Modify text content</li>
+        <li>Add your own background patterns or images</li>
+      </ul>
+    </div>
+  </body>
+</html>

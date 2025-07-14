@@ -1,0 +1,28 @@
+{
+  "name": "flipfocus-nl",
+  "version": "1.0.0",
+  "description": "FlipFocus - Privacy-first utility apps website",
+  "main": "index.js",
+  "scripts": {
+    "build": "tailwindcss -i ./assets/css/main.css -o ./assets/css/style.css --minify",
+    "watch": "tailwindcss -i ./assets/css/main.css -o ./assets/css/style.css --watch",
+    "dev": "bundle exec jekyll serve --livereload & npm run watch",
+    "serve": "bundle exec jekyll serve --livereload"
+  },
+  "keywords": [
+    "privacy-first",
+    "utility-apps",
+    "photo-organizer",
+    "duplicate-scanner",
+    "jekyll",
+    "static-site"
+  ],
+  "author": "Maurits van Hassel",
+  "license": "MIT",
+  "devDependencies": {
+    "postcss": "^8.4.32",
+    "tailwindcss": "^3.4.17",
+    "@tailwindcss/forms": "^0.5.10",
+    "@tailwindcss/typography": "^0.5.10"
+  }
+}

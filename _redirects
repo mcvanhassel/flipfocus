@@ -1,0 +1,13 @@
+# Netlify redirects file
+# Redirect old URLs or set up custom redirects
+
+# Force HTTPS
+http://flipfocus.nl/* https://www.flipfocus.nl/:splat 301!
+http://www.flipfocus.nl/* https://www.flipfocus.nl/:splat 301!
+
+# Redirect product pages to external sites
+/photo-organizer https://organizer.flipfocus.nl 301
+/duplicates-scanner https://duplicates.flipfocus.nl 301
+
+# API endpoints for future use
+/api/* https://api.flipfocus.nl/:splat 200
