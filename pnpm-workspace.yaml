@@ -1,0 +1,7 @@
+minimumReleaseAge: 3 days
+
+allowBuilds:
+  '@parcel/watcher': true
+
+onlyBuiltDependencies:
+  - "@parcel/watcher"
