@@ -18,17 +18,27 @@ Privacy-first utility apps for Mac and Windows. This is the main website for Fli
 
 ## Development
 
+**Prerequisites:** Node.js 22+, pnpm 11+ (`corepack enable`), Ruby + Bundler
+
 ```bash
-# Install dependencies
-npm install
+# Install Node dependencies (managed by pnpm)
+pnpm install
 bundle install
 
-# Build CSS
-npm run build
+# Build CSS (Tailwind CSS v4)
+pnpm run build
 
-# Start development server
+# Watch CSS during development
+pnpm run watch
+
+# Start Jekyll development server with live reload
 bundle exec jekyll serve --livereload
 ```
+
+> The `dev` script runs Jekyll and the Tailwind watcher in parallel:
+> ```bash
+> pnpm run dev
+> ```
 
 ## Deployment
 
@@ -58,4 +68,4 @@ This website respects user privacy:
 
 ## License
 
-© 2025 Maurits van Hassel. All rights reserved.
+© 2026 Maurits van Hassel. All rights reserved.
